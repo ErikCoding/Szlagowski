@@ -19,21 +19,21 @@ html {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
-  overflow-x: clip;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
 
 body {
+  position: relative;
   width: 100%;
   max-width: 100%;
   font-family: var(--font);
   background: var(--bg);
   color: var(--white);
   overflow-x: hidden;
-  overflow-x: clip;
   overscroll-behavior-x: none;
+  touch-action: pan-y;
   line-height: 1.6;
 }
 
@@ -56,10 +56,16 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   padding: 0 24px;
 }
 
-.section { position: relative; padding: 120px 0; }
+.section {
+  position: relative;
+  max-width: 100%;
+  overflow-x: hidden;
+  padding: 120px 0;
+}
 
 .section-divider {
   max-width: var(--max-w);
+  overflow-x: hidden;
   margin: 0 auto;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
@@ -137,6 +143,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 #navbar {
   position: fixed;
   top: 0; left: 0; right: 0;
+  max-width: 100%;
+  overflow-x: hidden;
   z-index: 100;
   padding: 20px 0;
   transition: padding 0.4s ease, background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
@@ -218,6 +226,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .mobile-menu {
   position: fixed;
   inset: 0;
+  max-width: 100%;
+  overflow-x: hidden;
   z-index: 200;
   background: rgba(5,5,5,0.97);
   backdrop-filter: blur(24px);
@@ -276,6 +286,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    ============================================================ */
 .hero {
   position: relative;
+  max-width: 100%;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -688,6 +699,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: flex;
   gap: 24px;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
+  touch-action: pan-y;
   scroll-snap-type: x mandatory;
   padding: 0 24px 16px;
   scrollbar-width: none;
@@ -1019,6 +1032,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
    FOOTER
    ============================================================ */
 .footer {
+  max-width: 100%;
+  overflow-x: hidden;
   border-top: 1px solid rgba(255,255,255,0.06);
   padding: 28px 0 max(18px, env(safe-area-inset-bottom));
 }
@@ -1067,6 +1082,16 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 @media (max-width: 768px) {
   .section { padding: 80px 0; }
 
+  html,
+  body {
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  body {
+    overscroll-behavior: none;
+  }
+
   .container,
   .nav-inner,
   .hero-inner,
@@ -1094,6 +1119,16 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
   .transforms-header { flex-direction: column; align-items: flex-start; gap: 24px; }
   .slider-controls { display: flex; }
+
+  .slider-track {
+    overflow-x: hidden;
+    scroll-snap-type: none;
+    touch-action: pan-y;
+  }
+
+  .transform-card {
+    width: min(calc(100vw - 40px), 400px);
+  }
 
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
 

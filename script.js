@@ -5,6 +5,42 @@
 'use strict';
 
 /* ──────────────────────────────────────────────
+   0. MOBILE VIEWPORT — lock accidental horizontal pan
+   ────────────────────────────────────────────── */
+(function lockHorizontalViewport() {
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  function resetHorizontalScroll() {
+    if (window.scrollX !== 0) {
+      window.scrollTo(0, window.scrollY);
+    }
+  }
+
+  window.addEventListener('scroll', resetHorizontalScroll, { passive: true });
+  window.addEventListener('resize', resetHorizontalScroll);
+
+  document.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  document.addEventListener('touchmove', e => {
+    if (e.touches.length !== 1) return;
+
+    const dx = e.touches[0].clientX - touchStartX;
+    const dy = e.touches[0].clientY - touchStartY;
+    const isHorizontalSwipe = Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.2;
+
+    if (isHorizontalSwipe) {
+      e.preventDefault();
+      resetHorizontalScroll();
+    }
+  }, { passive: false });
+})();
+
+/* ──────────────────────────────────────────────
    1. NAVBAR — scroll-triggered glass effect
    ────────────────────────────────────────────── */
 (function initNavbar() {
