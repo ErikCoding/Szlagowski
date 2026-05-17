@@ -28,6 +28,7 @@
 
   document.addEventListener('touchmove', e => {
     if (e.touches.length !== 1) return;
+    if (e.target.closest('#sliderTrack')) return;
 
     const dx = e.touches[0].clientX - touchStartX;
     const dy = e.touches[0].clientY - touchStartY;
